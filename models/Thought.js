@@ -5,13 +5,16 @@ const thoughtSchema = new Schema({
   thoughtText: {
     type: String,
     required: true,
-    min: 1,
-    max: 280,
+    minlength: 1,
+    maxlength: 280,
   },
   createdAt: {
     type: Date,
     default: Date.now(),
-    // TO DO: use a getter method to format the timestamp on the query
+    // Use a getter method to format the timestamp on the query
+    get: (date) => {
+      if (date) return date.toISOString().split("T")[0];
+    },
   },
   username: {
     type: String,
@@ -34,7 +37,7 @@ const reactionSchema = new mongoose.Schema({
   reactionBody: {
     type: String,
     required: true,
-    max: 280,
+    maxlength: 280,
   },
   username: {
     type: String,
@@ -43,7 +46,10 @@ const reactionSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    // TO DO: use a getter method to format the timestamp on the query
+    // Use a getter method to format the timestamp on the query
+    get: (date) => {
+      if (date) return date.toISOString().split("T")[0];
+    },
   },
 });
 
