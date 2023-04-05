@@ -13,13 +13,16 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: /.+\@.+\..+/,
+    match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
   },
   thoughts: [thoughtSchema],
   friends: [userSchema],
 });
 
-// TO DO: Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+// virtual called friendCount that retrieves the length of the user's friends array field on query.
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
 const User = model("user", userSchema);
 
