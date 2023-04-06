@@ -16,7 +16,7 @@ const userSchema = new Schema({
     match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
   },
   thoughts: [thoughtSchema],
-  friends: [userSchema],
+  friends: [this],
 });
 
 // virtual called friendCount that retrieves the length of the user's friends array field on query.
