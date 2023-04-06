@@ -54,6 +54,32 @@ module.exports = {
   // BONUS: remove a user's associated thoughts when deleted
 
   // POST to add a new friend to a user's friend list
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user with this id." })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 
   // DELETE to remove a friend from a user's friend list
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { friends: { friendId: req.params.friendId } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user with this id." })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
