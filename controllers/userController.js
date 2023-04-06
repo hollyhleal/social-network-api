@@ -70,7 +70,7 @@ module.exports = {
 
   // DELETE to remove a friend from a user's friend list
   deleteFriend(req, res) {
-    User.findOneAndUpdate(
+    User.findOneAndDelete(
       { _id: req.params.userId },
       { friends: { friendId: req.params.friendId } },
       { runValidators: true, new: true }
