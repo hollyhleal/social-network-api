@@ -20,7 +20,7 @@ const reactionSchema = new Schema({
     default: Date.now(),
     // Use a getter method to format the timestamp on the query
     get: (date) => {
-      timeSince(date);
+      date.toDateString();
     },
   },
 });
@@ -39,7 +39,7 @@ const thoughtSchema = new Schema(
       default: Date.now(),
       // Use a getter method to format the timestamp on the query
       get: (date) => {
-        timeSince(date);
+        date.toDateString();
       },
     },
     username: {
