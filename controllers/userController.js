@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 module.exports = {
@@ -70,9 +69,9 @@ module.exports = {
 
   // DELETE to remove a friend from a user's friend list
   deleteFriend(req, res) {
-    User.findOneAndDelete(
+    User.findOneAndUpdate(
       { _id: req.params.userId },
-      { friends: { friendId: req.params.friendId } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>
