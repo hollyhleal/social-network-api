@@ -21,15 +21,15 @@ module.exports = {
   // POST a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
   createThought(req, res) {
     Thought.create(req.body)
+      .then((thought) => {
+        return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $addtoSet: { thoughts: thought._id } },
+          { new: true }
+        );
+      })
       .then((thought) => res.json(thought))
-      .catch((err) => res.status(500).json(err))
-      .then((user) =>
-        !user
-          ? res.status(404).json({
-              message: "Thought created, but user not found.",
-            })
-          : res.json({ message: "Thought added to user's thoughts." })
-      );
+      .catch((err) => res.status(500).json(err));
   },
 
   // PUT to update a thought by its _id
