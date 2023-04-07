@@ -1,4 +1,3 @@
-// TO DO: require in mongoose?
 const { User, Thought } = require("../models");
 
 module.exports = {
