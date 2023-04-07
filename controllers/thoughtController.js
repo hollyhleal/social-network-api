@@ -28,7 +28,7 @@ module.exports = {
           { new: true }
         );
       })
-      .then((thought) => res.json(thought))
+      .then((thought) => res.json({ message: "Thought created." }))
       .catch((err) => res.status(500).json(err));
   },
 
