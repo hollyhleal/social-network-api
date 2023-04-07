@@ -28,10 +28,10 @@ module.exports = {
       });
   },
   // PUT to update a user by its _id
-  updateUser(req, res) {
+  updateUser({ params, body }, res) {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $set: req.body },
+      { _id: params.userId },
+      { $set: body },
       { runValidators: true, new: true }
     )
       .then((user) =>
@@ -42,8 +42,8 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // DELETE to remove user by its _id
-  deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
+  deleteUser({ params }, res) {
+    User.findOneAndDelete({ _id: params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with this id." })
